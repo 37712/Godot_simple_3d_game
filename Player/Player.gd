@@ -4,6 +4,7 @@ var velocity = Vector3.ZERO
 var acceleration = 0.4
 var friction = 0.2
 var max_speed = 10
+var gravity = 1 # gravity is originally 0.98
 
 onready var meshInstance = $MeshInstance
 
@@ -33,6 +34,9 @@ func _physics_process(_delta):
 	# rotate ball mesh, not great idea to rotate the root node
 	meshInstance.rotate_x(deg2rad(velocity.z))
 	meshInstance.rotate_z(deg2rad(-velocity.x))
+	
+	# add gravity
+	velocity.y -= gravity
 	
 	velocity = move_and_slide(velocity) # collide and slide, no delta needed
 	
