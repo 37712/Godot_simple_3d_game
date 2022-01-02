@@ -8,10 +8,6 @@ var gravity = 1 # gravity is originally 0.98
 
 onready var meshInstance = $MeshInstance
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
 	var input_vector = Vector3.ZERO
@@ -31,7 +27,7 @@ func _physics_process(_delta):
 	else: # not moving
 		velocity = velocity.move_toward(Vector3.ZERO, friction)
 	
-	# rotate ball mesh, not great idea to rotate the root node
+	# rotate ball mesh, do not root node
 	meshInstance.rotate_x(deg2rad(velocity.z))
 	meshInstance.rotate_z(deg2rad(-velocity.x))
 	
@@ -45,3 +41,7 @@ func clamped3(vect3, limit):
 	var vect2 = Vector2(vect3.x, vect3.z)
 	vect2 = vect2.clamped(limit)
 	return Vector3(vect2.x, vect3.y, vect2.y)
+	
+func _on_Enemy_body_entered(_body):
+	print("Player has died")
+	get_tree().change_scene("res://GameOver.tscn")
