@@ -45,6 +45,12 @@ ui_down={
  ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Walls"
+3d_physics/layer_2="Enemy"
+3d_physics/layer_3="Coins"
+
 [physics]
 
 common/enable_pause_aware_picking=true

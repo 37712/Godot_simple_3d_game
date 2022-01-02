@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Imports/Textures/TactilePaving002_2K_NormalGL.jpg" type="Texture" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://Blocks/BlocksLibrary.tres" type="MeshLibrary" id=4]
 [ext_resource path="res://my_env.tres" type="Environment" id=5]
 [ext_resource path="res://Enemy/Enemy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Coin/coin.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Imports/Coin/hud_coin.png" type="Texture" id=8]
+[ext_resource path="res://Imports/Fonts/Some Time Later.otf" type="DynamicFontData" id=9]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -143,33 +146,6 @@ tracks/1/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -460 ), Vector3( 460, 0, -460 ), Vector3( 0, 0, -460 ) ]
 }
 
-[sub_resource type="Animation" id=11]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 5, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( -632.5, 0, 0 ) ]
-}
-
 [sub_resource type="Animation" id=12]
 resource_name = "ROLL"
 length = 6.0
@@ -199,40 +175,14 @@ tracks/1/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -345 ), Vector3( -345, 0, -345 ), Vector3( 0, 0, -345 ) ]
 }
 
+[sub_resource type="DynamicFont" id=13]
+size = 50
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 9 )
+
 [node name="Level" type="Spatial"]
-
-[node name="Box" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1, -7 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Box"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Box"]
-mesh = SubResource( 2 )
-material/0 = SubResource( 5 )
-
-[node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 7, 11 )
-environment = ExtResource( 5 )
-target = NodePath("../Player/Camera Target")
-speed = 3.0
-enabled = true
-
-[node name="Floor" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Floor"]
-shape = SubResource( 3 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Floor"]
-mesh = SubResource( 4 )
-material/0 = null
-
-[node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, -1 )
-
-[node name="Camera Target" type="Spatial" parent="Player"]
-transform = Transform( 1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0, 6, 11 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, -18, 2, 0 )
@@ -249,6 +199,39 @@ data = {
 __meta__ = {
 "_editor_clip_": 0
 }
+
+[node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 7, 11 )
+environment = ExtResource( 5 )
+target = NodePath("../Player/Camera Target")
+speed = 3.0
+enabled = true
+
+[node name="Box" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1, -7 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Box"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Box"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 5 )
+
+[node name="Floor" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor"]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Floor"]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 2, -1 )
+
+[node name="Camera Target" type="Spatial" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0, 6, 11 )
 
 [node name="Enemy 1" parent="." instance=ExtResource( 6 )]
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -3, 1, 3 )
@@ -267,12 +250,68 @@ anims/RESET = SubResource( 9 )
 anims/ROLL = SubResource( 10 )
 
 [node name="Enemy 3" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 0.0436193, -0.999048, 0, 0.999048, 0.0436193, 5, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1, -5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy 3"]
 autoplay = "ROLL"
-anims/RESET = SubResource( 11 )
 anims/ROLL = SubResource( 12 )
+
+[node name="Coins" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="coin1" parent="Coins" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 4.76995e-08, 0, 1, 0, -4.76995e-08, 0, 1, 14, 0, 3 )
+
+[node name="coin2" parent="Coins" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 4.76995e-08, 0, 1, 0, -4.76995e-08, 0, 1, 8, 0, 8 )
+
+[node name="coin3" parent="Coins" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 4.76995e-08, 0, 1, 0, -4.76995e-08, 0, 1, 14, 0, 12 )
+
+[node name="coin4" parent="Coins" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 4.76995e-08, 0, 1, 0, -4.76995e-08, 0, 1, -6, 0, 14 )
+
+[node name="coin5" parent="Coins" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 4.76995e-08, 0, 1, 0, -4.76995e-08, 0, 1, -6, 0, 3 )
+
+[node name="coin6" parent="Coins" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 4.76995e-08, 0, 1, 0, -4.76995e-08, 0, 1, -11, 0, -8 )
+
+[node name="coin7" parent="Coins" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 4.76995e-08, 0, 1, 0, -4.76995e-08, 0, 1, -8, 0, -11 )
+
+[node name="coin8" parent="Coins" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 4.76995e-08, 0, 1, 0, -4.76995e-08, 0, 1, 6, 0, -11 )
+
+[node name="coin9" parent="Coins" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 4.76995e-08, 0, 1, 0, -4.76995e-08, 0, 1, 6, 0, -3 )
+
+[node name="coin10" parent="Coins" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 4.76995e-08, 0, 1, 0, -4.76995e-08, 0, 1, 11, 0, -11 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Control"]
+position = Vector2( 64, 64 )
+scale = Vector2( 0.128901, 0.125905 )
+texture = ExtResource( 8 )
+
+[node name="counter" type="Label" parent="Control"]
+margin_left = 128.0
+margin_top = 48.0
+margin_right = 192.0
+margin_bottom = 98.0
+custom_fonts/font = SubResource( 13 )
+text = "0"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="body_entered" from="Enemy 1" to="Player" method="_on_Enemy_body_entered"]
 [connection signal="body_entered" from="Enemy 2" to="Player" method="_on_Enemy_body_entered"]

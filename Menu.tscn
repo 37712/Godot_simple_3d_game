@@ -34,8 +34,11 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_right = 1024.0
-margin_bottom = 256.0
+margin_left = -8.0
+margin_top = 128.0
+margin_right = 1016.0
+margin_bottom = 384.0
+rect_rotation = -7.00795
 custom_colors/font_color = Color( 0.635294, 1, 0.133333, 1 )
 custom_colors/font_color_shadow = Color( 0.74902, 0.439216, 0.109804, 1 )
 custom_constants/shadow_offset_x = 5
@@ -51,10 +54,10 @@ __meta__ = {
 
 [node name="PlayButton" type="Button" parent="."]
 margin_left = 368.0
-margin_top = 224.0
+margin_top = 256.0
 margin_right = 646.0
-margin_bottom = 335.0
-custom_colors/font_color = Color( 0.254902, 0.847059, 1, 1 )
+margin_bottom = 367.0
+custom_colors/font_color = Color( 0.482353, 0.709804, 0.894118, 1 )
 custom_colors/font_color_hover = Color( 0.0235294, 0.592157, 0, 1 )
 custom_colors/font_color_pressed = Color( 0.917647, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
@@ -67,10 +70,10 @@ __meta__ = {
 
 [node name="QuitButton" type="Button" parent="."]
 margin_left = 384.0
-margin_top = 328.0
+margin_top = 376.0
 margin_right = 632.0
-margin_bottom = 439.0
-custom_colors/font_color = Color( 0.254902, 0.847059, 1, 1 )
+margin_bottom = 487.0
+custom_colors/font_color = Color( 0.482353, 0.709804, 0.894118, 1 )
 custom_colors/font_color_hover = Color( 0.0235294, 0.592157, 0, 1 )
 custom_colors/font_color_pressed = Color( 0.917647, 0, 0, 1 )
 custom_fonts/font = SubResource( 3 )
